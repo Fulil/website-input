@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Penjualan GAS Hari ini</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      background: linear-gradient(135deg,#0f172a,#1e293b);
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+      color:white;
+    }
+
+    .container{
+      width:100%;
+      max-width:450px;
+      background:#111827;
+      padding:25px;
+      border-radius:20px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    h1{
+      text-align:center;
+      margin-bottom:20px;
+      font-size:28px;
+    }
+
+    .info{
+      background:#1f2937;
+      padding:15px;
+      border-radius:12px;
+      margin-bottom:20px;
+    }
+
+    .info p{
+      margin:5px 0;
+      font-size:17px;
+    }
+
+    .input-group{
+      margin-bottom:15px;
+    }
+
+    label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:bold;
+    }
+
+    input{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:10px;
+      outline:none;
+      font-size:16px;
+    }
+
+    button{
+      width:100%;
+      padding:13px;
+      border:none;
+      border-radius:12px;
+      background:#22c55e;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+      transition:0.3s;
+      font-weight:bold;
+    }
+
+    button:hover{
+      background:#16a34a;
+    }
+
+    .hasil{
+      margin-top:20px;
+      background:#1f2937;
+      padding:15px;
+      border-radius:12px;
+    }
+
+    .hasil p{
+      margin:8px 0;
+      font-size:17px;
+    }
+
+    table{
+      width:100%;
+      margin-top:15px;
+      border-collapse:collapse;
+    }
+
+    table th,
+    table td{
+      padding:10px;
+      text-align:center;
+      border-bottom:1px solid #374151;
+    }
+
+    table th{
+      background:#374151;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Penjualan GAS LPG Harian</h1>
+
+    <div class="info">
+      <p><strong>Produk:</strong> GAS LPG</p>
+      <p><strong>Harga:</strong> Rp.18.000</p>
+    </div>
+
+    <div class="input-group">
+      <label>Jumlah Terjual</label>
+      <input type="number" id="jumlah" placeholder="Masukkan jumlah gas">
+    </div>
+
+    <button onclick="tambahPenjualan()">Tambah Penjualan</button>
+
+    <div class="hasil">
+      <p><strong>Total Penjualan:</strong> Rp <span id="totalSemua">0</span></p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Jumlah</th>
+            <th>Total Harga</th>
+          </tr>
+        </thead>
+
+        <tbody id="tabelPenjualan">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const hargaGas = 18000;
+    let totalPenjualan = 0;
+
+    function tambahPenjualan(){
+      const jumlah = parseInt(document.getElementById("jumlah").value);
+
+      if(isNaN(jumlah) || jumlah <= 0){
+        alert("Masukkan jumlah yang valid!");
+        return;
+      }
+
+      const total = jumlah * hargaGas;
+      totalPenjualan += total;
+
+      document.getElementById("totalSemua").innerText =
+        totalPenjualan.toLocaleString("id-ID");
+
+      const tabel = document.getElementById("tabelPenjualan");
+
+      const row = `
+        <tr>
+          <td>${jumlah}</td>
+          <td>Rp ${total.toLocaleString("id-ID")}</td>
+        </tr>
+      `;
+
+      tabel.innerHTML += row;
+
+      document.getElementById("jumlah").value = "";
+    }
+  </script>
+
+</body>
+</html>
